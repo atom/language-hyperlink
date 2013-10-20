@@ -1,0 +1,9 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/progress.rb\"\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes.rb\"\nrequire 'open-uri'\nrequire 'erb'\n\n\ndef getWikiDef(input)\n  TextMate.call_with_progress(:title => \"Contacting Wikipedia\", :message => \"Looking for definition of #{input}\") do\n  \tresponse = open(\"http://en.wikipedia.org/wiki/Special:Search?search=#{input}\",\n  \t    \"User-Agent\" => \"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.1) Gecko/20060111 Firefox/1.5.0.1\",\n  \t    \"Referer\" => \"http://www.ruby-lang.org/\") {|f| $response = f }\n  \turl = response.base_uri\n  \t# borrowed from iamrice.org\n  \tfp = open(url)\n  \ttitle = \"Wikipedia Entry: \" + fp.read.match(/<title>([^<>]*)<\\/title>/i).to_a[1]\n  \tif title.include? \"Search\"\n  \t   TextMate.exit_show_tool_tip \"No definition found\"\n  \telse\n  \t   return title.sub(/ - Wikipedia, the free encyclopedia/, ''), url\n  \tend\n  end\nend\ninput = STDIN.read\ntitle, url = getWikiDef(input)\nprint ERB.new(ENV['TM_LINK_FORMAT']).result",
+  "fallbackInput": "word",
+  "input": "selection",
+  "name": "Basic Wikipedia",
+  "output": "insertAsSnippet",
+  "scope": "text"
+}

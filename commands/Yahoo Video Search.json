@@ -1,0 +1,10 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -rjcode -Ku\nSUPPORT = ENV['TM_SUPPORT_PATH']\nDIALOG = ENV['DIALOG']\nrequire SUPPORT + '/lib/escape'\nrequire SUPPORT + '/lib/osx/plist'\nrequire SUPPORT + '/lib/exit_codes'\nrequire \"#{ENV['TM_BUNDLE_SUPPORT']}/lib/yahoo\"\nrequire 'erb'\n\ninput = STDIN.read\nquery = e_url(input)\nyahoo = VideoSearch.new('TM_YAHOO', query, 'all', 10, 1, nil, 1)\nysuggest = []\n    yahoo.parse_results.each {|result| \n        ysuggest << { \n          'title' => result['Title'].gsub('\"','&raquo;'),\n          'url' => result['Url']}\n    }\n    plist = { 'menuItems' => ysuggest }.to_plist\n\n    res = OSX::PropertyList.load(`#{e_sh DIALOG} -up #{e_sh plist}`)\n    TextMate.exit_show_tool_tip \"No matches found\" unless res.has_key? 'selectedMenuItem'\n    url = res['selectedMenuItem']['url']\n    title = res['selectedMenuItem']['title']\n\n    print ERB.new(ENV['TM_LINK_FORMAT']).result",
+  "fallbackInput": "word",
+  "input": "selection",
+  "keyEquivalent": "^Y",
+  "name": "Yahoo Video Search",
+  "output": "insertAsSnippet",
+  "scope": "text"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "LaTeX",
+  "scope": "text.tex.latex",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "\\href{<%= e_sn url %>}{<%= e_sn input %>}"
+      }
+    ]
+  }
+}

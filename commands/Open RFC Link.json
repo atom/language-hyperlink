@@ -1,0 +1,15 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU\nrequire \"shellwords\"\n\nlink = STDIN.read\nif link =~ /RFC\\s*(\\d+)/i\n  url = \"http://tools.ietf.org/html/rfc#$1\"\n  %x{ /usr/bin/open #{url.shellescape} }\nelse\n  abort \"Not an RFC link: ‘#{link}’\"\nend\n",
+  "fallbackInput": "scope",
+  "hideFromUser": "1",
+  "input": "selection",
+  "inputFormat": "text",
+  "keyEquivalent": "\u0003",
+  "name": "Open RFC Link",
+  "outputCaret": "afterOutput",
+  "outputFormat": "text",
+  "outputLocation": "discard",
+  "scope": "L:markup.underline.link.rfc | R:markup.underline.link.rfc",
+  "version": 2
+}

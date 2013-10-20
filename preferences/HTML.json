@@ -1,0 +1,12 @@
+{
+  "name": "HTML",
+  "scope": "text.html",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "<a href=\"<%= e_sn url %>\"<%= \" title=\\\"\\${1:#{e_sn title}}\\\"\" if defined? title %>><%= e_sn input %></a>"
+      }
+    ]
+  }
+}

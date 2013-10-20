@@ -1,0 +1,12 @@
+{
+  "name": "reStructuredText",
+  "scope": "text.restructuredtext",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "\\`<%= e_sn input %><<%= e_sn url %>>\\`_"
+      }
+    ]
+  }
+}

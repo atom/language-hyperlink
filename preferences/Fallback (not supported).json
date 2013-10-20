@@ -1,0 +1,11 @@
+{
+  "name": "Fallback (not supported)",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "(this language is not supported, see … for more info)"
+      }
+    ]
+  }
+}

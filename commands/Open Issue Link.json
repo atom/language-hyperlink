@@ -1,0 +1,15 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby -wKU\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/escape\"\n\nabort \"The TM_ISSUE_URL variable is unset for this project.\\n\\nThis needs to be set to a URL template (using %s) that translates the issue link to one that works in a browser.\" unless ENV.has_key? 'TM_ISSUE_URL'\n\nlink = STDIN.read\nif link =~ %r{issue://(.+)}\n  url = ENV['TM_ISSUE_URL'] % $1\n  %x{ /usr/bin/open #{e_sh url} }\nelse\n  abort \"Not an issue link: ‘#{link}’\"\nend\n",
+  "fallbackInput": "scope",
+  "hideFromUser": "1",
+  "input": "selection",
+  "inputFormat": "text",
+  "keyEquivalent": "\u0003",
+  "name": "Open Issue Link",
+  "outputCaret": "afterOutput",
+  "outputFormat": "text",
+  "outputLocation": "discard",
+  "scope": "L:markup.underline.link.issue | R:markup.underline.link.issue",
+  "version": 2
+}

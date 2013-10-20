@@ -1,0 +1,14 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/bin/bash\nexec open \"$(cat)\"\n",
+  "fallbackInput": "scope",
+  "input": "selection",
+  "inputFormat": "text",
+  "keyEquivalent": "\u0003",
+  "name": "Open Current URL",
+  "outputCaret": "afterOutput",
+  "outputFormat": "text",
+  "outputLocation": "discard",
+  "scope": "(L:markup.underline.link | R:markup.underline.link) - markup.underline.link.relative",
+  "version": 2
+}

@@ -1,0 +1,10 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU\nrequire ENV['TM_SUPPORT_PATH'] + '/lib/escape.rb'\nrequire 'erb'\nrequire 'open-uri'\nrequire 'net/http' \n\ndef entity_escape(text)\n  text.gsub(/&(?!([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+);)/, '&amp;')\nend\n\ndef make_link(text)\n  case text\n  when %r{\\A(mailto:)?(.*?@.*\\..*)\\z}:\n    \"mailto:#{$2.gsub(/./) {sprintf(\"&#x%02X;\", $&.unpack(\"U\")[0])}}\"\n  when %r{http://www.(amazon.(?:com|co.uk|co.jp|ca|fr|de))/.+?/([A-Z0-9]{10})/[-a-zA-Z0-9_./%?=&]+}:\n    \"http://#{$1}/dp/#{$2}\"\n  when %r{\\A[a-zA-Z][a-zA-Z0-9.+-]*://.*\\z}:\n    entity_escape(text)\n  when %r{\\A(www\\..*|.*\\.(com|uk|net|org|info))\\z}:\n    \"http://#{entity_escape text}\"\n  when %r{\\A.*\\.(com|uk|net|org|info)\\z}:\n    \"http://#{entity_escape text}\"\n  when %r{\\A\\S+\\z}:\n    entity_escape(text)\n  else\n    \"http://example.com/\"\n  end\nend\n\nurl = make_link %x{__CF_USER_TEXT_ENCODING=$UID:0x8000100:0x8000100 pbpaste}.strip\n\nif url =~ /^http:\\/\\// and url != 'http://example.com/'\n  eval 'title = fp.read.match(/<title>([^<>]*)<\\/title>/i).to_a[1].strip rescue nil' if fp = open(url) rescue nil\nend\n\ninput = STDIN.read\nprint ERB.new(ENV['TM_LINK_FORMAT']).result\n",
+  "fallbackInput": "word",
+  "input": "selection",
+  "keyEquivalent": "^L",
+  "name": "Wrap Word / Selection as Link",
+  "output": "insertAsSnippet",
+  "scope": "text"
+}

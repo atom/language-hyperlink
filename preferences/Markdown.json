@@ -1,0 +1,12 @@
+{
+  "name": "Markdown",
+  "scope": "text.html.markdown -meta.disable-markdown",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "[<%= e_sn input %>](<%= e_sn url %><%= \" \\\"\\${1:#{e_sn title}}\\\"\" if defined? title %>)"
+      }
+    ]
+  }
+}

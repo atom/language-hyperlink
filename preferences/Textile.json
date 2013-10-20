@@ -1,0 +1,12 @@
+{
+  "name": "Textile",
+  "scope": "text.html.textile",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "\"<%= e_sn input %>\":<%= e_sn url %>"
+      }
+    ]
+  }
+}

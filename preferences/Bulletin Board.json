@@ -1,0 +1,12 @@
+{
+  "name": "Bulletin Board",
+  "scope": "text.bbcode",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "[URL=<%= e_sn url %>]<%= e_sn input %>[/URL]"
+      }
+    ]
+  }
+}

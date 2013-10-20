@@ -1,0 +1,10 @@
+{
+  "beforeRunningCommand": "nop",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU\n# an evolution of the code from skiadas.dcostanet.net/afterthought\n# retrieves link from Google automatically and creates XHTML link\n# improved call to progress bar, added ability to retrieve title\n# of page and create title attribute in link using idea\n# borrowed from iamrice.org.  Improved regex to handle title tags \n# newlines, spaces and capitalization differences\nrequire ENV['TM_SUPPORT_PATH'] + '/lib/progress.rb'\nrequire ENV['TM_SUPPORT_PATH'] + '/lib/escape.rb'\nrequire ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes.rb'\nrequire 'net/http' \nrequire 'open-uri'\nrequire 'erb'\n\ndef getLinkWithTitle(phrase)\n  TextMate.call_with_progress(:title => \"Contacting Google\", :message => \"Retrieving Link for “#{phrase}”…\") do\n    response = Net::HTTP.get_response(URI.parse(URI.escape(\"http://www.google.com/search?q=#{phrase}&btnI=I'm+Feeling+Lucky\")))\n    url = response.to_hash['location'].to_a.first\n    return nil, nil, phrase if url.nil?\n    fp = open(url)\n    title = fp.read.match(/<title>([^<>]*)<\\/title>/i).to_a[1]\n    title = title.strip\n    return url, title, phrase\n  end\nend\n\nurl, title, input = getLinkWithTitle(STDIN.read)\nTextMate.exit_show_tool_tip(\"No results found for “#{input}”.\") if url.nil?\nprint ERB.new(ENV['TM_LINK_FORMAT']).result\n",
+  "fallbackInput": "word",
+  "input": "selection",
+  "keyEquivalent": "^@L",
+  "name": "Lookup Word / Selection on Google and Link",
+  "output": "insertAsSnippet",
+  "scope": "text"
+}

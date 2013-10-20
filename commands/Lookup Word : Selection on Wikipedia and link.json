@@ -1,0 +1,10 @@
+{
+  "beforeRunningCommand": "nop",
+  "bundleUUID": "1BF76350-AB8F-4FC8-9512-1129CEEE0A3E",
+  "command": "#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/progress.rb\"\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/exit_codes.rb\"\nrequire \"#{ENV['TM_SUPPORT_PATH']}/lib/ui.rb\"\nrequire 'cgi'\nrequire 'open-uri'\nrequire 'erb'\nrequire 'rexml/document'\n\ndef select_link(links)\n  linklist = links.map { |p| p['Text'] }\n  item = TextMate::UI.request_item :title => \"Multiple Definitions\", :prompt => \"Please select a definition\", :items => linklist\n  TextMate.exit_discard if item.nil?\n  return links[linklist.index(item)]\nend # select_link\n\ndef getWikiEntries(phrase)\n  res = []\n  response = open(\"http://en.wikipedia.org/w/api.php?format=xml&action=opensearch&search=#{CGI.escape(phrase)}\", \"User-Agent\" => \"TextMate 2.0\")\n  doc = REXML::Document.new(response.read)\n\n  doc.elements.each('SearchSuggestion/Section/Item') do |item|\n    hash = { }\n    %w[ Text Url Description ].each { |tag| item.elements.each(tag) { |inner| hash[tag] = inner.text } }\n    res << hash\n  end\n  res.sort { |a, b| a['Text'].downcase <=> b['Text'].downcase }\nend\n\ndef getWikiDef(phrase)\n  entries = getWikiEntries(phrase)\n  TextMate.exit_show_tool_tip \"No definition found\" if entries.empty?\n  entry = entries.size > 1 ? select_link(entries) : entries.first\n  return entry['Url'], \"Wikipedia Entry: #{entry['Text']}\", phrase\nend\n\nurl, title, input = getWikiDef(STDIN.read)\nprint ERB.new(ENV['TM_LINK_FORMAT']).result\n",
+  "fallbackInput": "word",
+  "input": "selection",
+  "name": "Lookup Word / Selection on Wikipedia and link",
+  "output": "insertAsSnippet",
+  "scope": "text"
+}

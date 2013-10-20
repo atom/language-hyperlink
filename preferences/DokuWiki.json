@@ -1,0 +1,12 @@
+{
+  "name": "DokuWiki",
+  "scope": "text.html.dokuwiki",
+  "settings": {
+    "shellVariables": [
+      {
+        "name": "TM_LINK_FORMAT",
+        "value": "[[<%= e_sn url %>|<%= e_sn input %>]]"
+      }
+    ]
+  }
+}
