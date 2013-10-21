@@ -6,7 +6,7 @@
     "atom": "*",
     "node": "*"
   },
-  "homepage": "https://atom.github.io/language-hyperlink",
+  "homepage": "http://atom.github.io/language-hyperlink",
   "repository": {
     "type": "git",
     "url": "https://github.com/atom/language-hyperlink.git"
