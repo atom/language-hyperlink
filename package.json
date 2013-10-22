@@ -1,5 +1,5 @@
 {
-  "name": "langauge-hyperlink",
+  "name": "language-hyperlink",
   "version": "0.1.0",
   "description": "Hyperlink colorization in Atom",
   "engines": {
