@@ -3,7 +3,7 @@
 'name': 'Hyperlink'
 'patterns': [
   {
-    'match': '(?x)( (https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man(-page)?|gopher|txmt|issue)://|mailto:)[-:@[:word:].,~%+/?=&#;]+(?<![-.,?:#;])'
+    'match': '(?x)( (https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man(-page)?|gopher|txmt|issue)://|mailto:)[-:@[:word:].,~%+/?=&#;|]+(?<![-.,?:#;])'
     'name': 'markup.underline.link.$2.hyperlink'
   }
   {
