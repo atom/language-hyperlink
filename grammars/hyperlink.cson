@@ -1,3 +1,4 @@
+'scopeName': 'text.hyperlink'
 'fileTypes': []
 'injectionSelector': 'text, string, comment'
 'name': 'Hyperlink'
@@ -11,4 +12,3 @@
     'name': 'markup.underline.link.rfc.$1.hyperlink'
   }
 ]
-'scopeName': 'text.hyperlink'
