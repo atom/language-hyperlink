@@ -1,4 +1,4 @@
-# Hyperlink colorization in Atom
+# Hyperlink colorization in Atom [![Build Status](https://travis-ci.org/atom/language-hyperlink.svg?branch=master)](https://travis-ci.org/atom/language-hyperlink)
 
 Adds syntax highlighting to hyperlinks embedded in strings, comments, and plain
 text in Atom.
