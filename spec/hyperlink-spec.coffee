@@ -6,7 +6,7 @@ describe 'Hyperlink grammar', ->
       atom.packages.activatePackage('language-hyperlink')
 
     runs ->
-      grammar = atom.syntax.grammarForScopeName('text.hyperlink')
+      grammar = atom.grammars.grammarForScopeName('text.hyperlink')
 
   it 'parses the grammar', ->
     expect(grammar).toBeTruthy()
