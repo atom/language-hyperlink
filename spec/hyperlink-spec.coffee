@@ -13,7 +13,7 @@ describe 'Hyperlink grammar', ->
     expect(grammar.scopeName).toBe 'text.hyperlink'
 
   it 'parses http: and https: links', ->
-    plainGrammar = atom.syntax.selectGrammar()
+    plainGrammar = atom.grammars.selectGrammar()
 
     {tokens} = plainGrammar.tokenizeLine 'http://github.com'
     expect(tokens[0]).toEqual value: 'http://github.com', scopes: ['text.plain.null-grammar', 'markup.underline.link.http.hyperlink']
