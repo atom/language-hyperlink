@@ -20,3 +20,6 @@ describe 'Hyperlink grammar', ->
 
     {tokens} = plainGrammar.tokenizeLine 'https://github.com'
     expect(tokens[0]).toEqual value: 'https://github.com', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
+
+    {tokens} = plainGrammar.tokenizeLine 'http://twitter.com/#!/AtomEditor'
+    expect(tokens[0]).toEqual value: 'http://twitter.com/#!/AtomEditor', scopes: ['text.plain.null-grammar', 'markup.underline.link.http.hyperlink']
