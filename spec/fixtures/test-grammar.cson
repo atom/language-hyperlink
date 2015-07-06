@@ -1,0 +1,11 @@
+'name': 'TestGrammar'
+'scopeName': 'source.test'
+'fileTypes': []
+'patterns': [
+  {
+    'captures':
+      '1':
+        'name': 'string.regexp.test'
+    'match': 'regexp:(.+)'
+  }
+]
