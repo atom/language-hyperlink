@@ -1,3 +1,5 @@
+path = require 'path'
+
 describe 'Hyperlink grammar', ->
   grammar = null
 
@@ -25,8 +27,7 @@ describe 'Hyperlink grammar', ->
     expect(tokens[0]).toEqual value: 'http://twitter.com/#!/AtomEditor', scopes: ['text.plain.null-grammar', 'markup.underline.link.http.hyperlink']
 
   it 'does not parse links in a regex string', ->
-    path = require 'path'
-    testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures/test-grammar.cson'))
+    testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures', 'test-grammar.cson'))
 
     {tokens} = testGrammar.tokenizeLine 'regexp:http://github.com'
     expect(tokens[1]).toEqual value: 'http://github.com', scopes: ['source.test', 'string.regexp.test']

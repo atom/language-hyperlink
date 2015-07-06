@@ -3,9 +3,8 @@
 'fileTypes': []
 'patterns': [
   {
-    'captures':
-      '1':
-        'name': 'string.regexp.test'
-    'match': 'regexp:(.+)'
+    'name': 'string.regexp.test'
+    'begin': 'regexp:'
+    'end': '$'
   }
 ]
