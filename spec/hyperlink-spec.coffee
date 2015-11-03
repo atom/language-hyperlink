@@ -34,10 +34,15 @@ describe 'Hyperlink grammar', ->
 
   describe 'parsing cfml strings', ->
 
-    it 'does not include anything between (and including) pound signs', ->
+    it 'does not include link containing 2 pound signs', ->
       plainGrammar = atom.grammars.selectGrammar()
       {tokens} = plainGrammar.tokenizeLine 'http://github.com/#username#'
-      expect(tokens[0]).toEqual value: 'http://github.com/', scopes: ['text.plain.null-grammar', 'markup.underline.link.http.hyperlink']
+      expect(tokens[0]).toEqual value: 'http://github.com/#username#', scopes: ['text.plain.null-grammar']
+
+    it 'does not include link containing more than 2 pound signs', ->
+      plainGrammar = atom.grammars.selectGrammar()
+      {tokens} = plainGrammar.tokenizeLine 'http://#domain#/#username#'
+      expect(tokens[0]).toEqual value: 'http://#domain#/#username#', scopes: ['text.plain.null-grammar']
 
     it 'still includes single pound signs', ->
       plainGrammar = atom.grammars.selectGrammar()
