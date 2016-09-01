@@ -29,8 +29,11 @@ describe 'Hyperlink grammar', ->
     {tokens} = plainGrammar.tokenizeLine 'https://github.com/atom/brightray_example'
     expect(tokens[0]).toEqual value: 'https://github.com/atom/brightray_example', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
 
+  it 'parses http: and https: links that contains unicode characters', ->
+    plainGrammar = atom.grammars.selectGrammar()
+
     {tokens} = plainGrammar.tokenizeLine 'https://sv.wikipedia.org/wiki/Mañana'
-    expect(tokens[0]).toEqual {value: 'https://sv.wikipedia.org/wiki/Mañana', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']}, 'allows unicode characters'
+    expect(tokens[0]).toEqual value: 'https://sv.wikipedia.org/wiki/Mañana', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
 
   it 'does not parse links in a regex string', ->
     testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures', 'test-grammar.cson'))
