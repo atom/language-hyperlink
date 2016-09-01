@@ -4,7 +4,7 @@
 'injectionSelector': 'text, string -string.regexp, comment, source.gfm'
 'patterns': [
   {
-    'match': '(?x)( (https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man(-page)?|gopher|txmt|issue)://|mailto:)((?!(\\#[a-zA-Z0-9]*\\#))(?:[-:@a-zA-Z0-9.,~%+_\/?=&#;|!]))+(?<![-.,?:#;])'
+    'match': '(?x)( (https?|s?ftp|ftps|file|smb|afp|nfs|(x-)?man(-page)?|gopher|txmt|issue)://|mailto:)((?!(\\#[[:word:]]*\\#))(?:[-:@[:word:].,~%+_\/?=&#;|!]))+(?<![-.,?:#;])'
     'name': 'markup.underline.link.$2.hyperlink'
   }
   {
