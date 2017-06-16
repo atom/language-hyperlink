@@ -50,8 +50,23 @@ describe 'Hyperlink grammar', ->
     {tokens} = testGrammar.tokenizeLine 'regexp:http://github.com'
     expect(tokens[1]).toEqual value: 'http://github.com', scopes: ['source.test', 'string.regexp.test']
 
-  describe 'parsing cfml strings', ->
+  describe 'parsing PHP strings', ->
+    it 'does not parse links in a regex string', ->
+      # PHP is unique in that its root scope is `text.html.php`, meaning that even though
+      # `string - string.regexp` won't match in a regex string, `text` still will.
+      # This is the reason the injection selector is `text - string.regexp` instead.
+      # https://github.com/atom/language-php/issues/219
 
+      waitsForPromise ->
+        atom.packages.activatePackage('language-php')
+
+      runs ->
+        phpGrammar = atom.grammars.grammarForScopeName('text.html.php')
+
+        {tokens} = phpGrammar.tokenizeLine '<?php "/mailto:/" ?>'
+        expect(tokens[3]).toEqual value: 'mailto:', scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'string.regexp.double-quoted.php']
+
+  describe 'parsing cfml strings', ->
     it 'does not include anything between (and including) pound signs', ->
       plainGrammar = atom.grammars.selectGrammar()
       {tokens} = plainGrammar.tokenizeLine 'http://github.com/#username#'

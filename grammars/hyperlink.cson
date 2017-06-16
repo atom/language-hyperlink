@@ -1,7 +1,7 @@
 'name': 'Hyperlink'
 'scopeName': 'text.hyperlink'
 'fileTypes': []
-'injectionSelector': 'text, string -string.regexp, comment, source.gfm'
+'injectionSelector': 'text - string.regexp, string - string.regexp, comment, source.gfm'
 'patterns': [
   {
     'match': '(?x)\\b(https?|s?ftp|ftps|file|smb|afp|nfs|(?:x-)?man(?:-page)?|gopher|txmt|issue)://((?!(\\#[[:word:]]*\\#))(?:[-:@[:word:].,~%+_\/?=&#;|!]))+(?<![-.,?:#;])'
