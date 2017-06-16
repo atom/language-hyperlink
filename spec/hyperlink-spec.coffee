@@ -35,6 +35,15 @@ describe 'Hyperlink grammar', ->
     {tokens} = plainGrammar.tokenizeLine 'https://sv.wikipedia.org/wiki/Mañana'
     expect(tokens[0]).toEqual value: 'https://sv.wikipedia.org/wiki/Mañana', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
 
+  it 'parses other links', ->
+    plainGrammar = atom.grammars.selectGrammar()
+    
+    {tokens} = plainGrammar.tokenizeLine 'mailto:noreply@example.com'
+    expect(tokens[0]).toEqual value: 'mailto:noreply@example.com', scopes: ['text.plain.null-grammar', 'markup.underline.link.mailto.hyperlink']
+
+    {tokens} = plainGrammar.tokenizeLine 'x-man-page://tar'
+    expect(tokens[0]).toEqual value: 'x-man-page://tar', scopes: ['text.plain.null-grammar', 'markup.underline.link.x-man-page.hyperlink']
+    
   it 'does not parse links in a regex string', ->
     testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures', 'test-grammar.cson'))
 
