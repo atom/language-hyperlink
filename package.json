@@ -1,6 +1,6 @@
 {
   "name": "language-hyperlink",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "description": "Hyperlink colorization in Atom",
   "engines": {
     "atom": "*",
