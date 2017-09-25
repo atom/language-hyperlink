@@ -1,6 +1,4 @@
-'name': 'Hyperlink'
 'scopeName': 'text.hyperlink'
-'fileTypes': []
 'injectionSelector': 'text - string.regexp, string - string.regexp, comment, source.gfm'
 'patterns': [
   {
