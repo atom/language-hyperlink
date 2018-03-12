@@ -43,6 +43,9 @@ describe 'Hyperlink grammar', ->
 
     {tokens} = plainGrammar.tokenizeLine 'x-man-page://tar'
     expect(tokens[0]).toEqual value: 'x-man-page://tar', scopes: ['text.plain.null-grammar', 'markup.underline.link.x-man-page.hyperlink']
+
+    {tokens} = plainGrammar.tokenizeLine 'atom://core/open/file?filename=urlEncodedFileName&line=n&column=n'
+    expect(tokens[0]).toEqual value: 'atom://core/open/file?filename=urlEncodedFileName&line=n&column=n', scopes: ['text.plain.null-grammar', 'markup.underline.link.atom.hyperlink']
     
   it 'does not parse links in a regex string', ->
     testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures', 'test-grammar.cson'))
