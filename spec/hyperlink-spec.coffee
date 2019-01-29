@@ -37,7 +37,7 @@ describe 'Hyperlink grammar', ->
 
   it 'parses other links', ->
     plainGrammar = atom.grammars.selectGrammar()
-    
+
     {tokens} = plainGrammar.tokenizeLine 'mailto:noreply@example.com'
     expect(tokens[0]).toEqual value: 'mailto:noreply@example.com', scopes: ['text.plain.null-grammar', 'markup.underline.link.mailto.hyperlink']
 
@@ -46,7 +46,7 @@ describe 'Hyperlink grammar', ->
 
     {tokens} = plainGrammar.tokenizeLine 'atom://core/open/file?filename=urlEncodedFileName&line=n&column=n'
     expect(tokens[0]).toEqual value: 'atom://core/open/file?filename=urlEncodedFileName&line=n&column=n', scopes: ['text.plain.null-grammar', 'markup.underline.link.atom.hyperlink']
-    
+
   it 'does not parse links in a regex string', ->
     testGrammar = atom.grammars.loadGrammarSync(path.join(__dirname, 'fixtures', 'test-grammar.cson'))
 
@@ -79,3 +79,14 @@ describe 'Hyperlink grammar', ->
       plainGrammar = atom.grammars.selectGrammar()
       {tokens} = plainGrammar.tokenizeLine 'http://github.com/atom/#start-of-content'
       expect(tokens[0]).toEqual value: 'http://github.com/atom/#start-of-content', scopes: ['text.plain.null-grammar', 'markup.underline.link.http.hyperlink']
+
+  describe 'parsing matching parentheses', ->
+    it 'still includes matching parentheses', ->
+      plainGrammar = atom.grammars.selectGrammar()
+      {tokens} = plainGrammar.tokenizeLine 'https://en.wikipedia.org/wiki/Atom_(text_editor)'
+      expect(tokens[0]).toEqual value: 'https://en.wikipedia.org/wiki/Atom_(text_editor)', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
+
+    it 'does not include wrapping parentheses', ->
+      plainGrammar = atom.grammars.selectGrammar()
+      {tokens} = plainGrammar.tokenizeLine '(https://en.wikipedia.org/wiki/Atom_(text_editor))'
+      expect(tokens[1]).toEqual value: 'https://en.wikipedia.org/wiki/Atom_(text_editor)', scopes: ['text.plain.null-grammar', 'markup.underline.link.https.hyperlink']
